@@ -11,25 +11,26 @@
 | last_name          | string  | null: false                                  |
 | first_name_kana    | string  | null: false,format: { with: /\p{katakana}/ } |
 | last_name_kana     | string  | null: false,format: { with: /\p{katakana}/ } |
-| birth_date         | integer | null: false                                  |
+| birth_date         | date    | null: false                                  |
 
 ### Association
 
 - has_many :items
-- has_many :purchase_record
+- has_many :purchase_records
 
 ## items テーブル
 
-| Column          | Type       | Options                                      |
-| --------------- | ---------- | -------------------------------------------- |
-| title           | string     | null: false                                  |
-| detail          | text       | null: false                                  |
-| price           | references | foreign_key: true                            |
-| category        | integer    | null: false                                  |
-| condition       | integer    | null: false                                  |
-| shipping_payer  | integer    | null: false                                  |
-| shipping_source | integer    | null: false                                  |
-| storage_date    | integer    | null: false                                  |
+| Column            | Type       | Options                                      |
+| ----------------- | ---------- | -------------------------------------------- |
+| title             | string     | null: false                                  |
+| detail            | text       | null: false                                  |
+| price             | integer    | null: false, inclusion: { in: 300..9999999 } |
+| category_id       | integer    | null: false                                  |
+| condition_id      | integer    | null: false                                  |
+| shipping_payer_id | integer    | null: false                                  |
+| prefecture_id     | integer    | null: false                                  |
+| storage_date_id   | integer    | null: false                                  |
+| user              | references | foreign_key: true                            |
 
 ### Association
 
@@ -54,7 +55,7 @@
 | Column          | Type       | Options                                    |
 |-----------------|------------|--------------------------------------------|
 | postal_code     | string     | null: false,format: { with: /\A[0-9]+\z/ } |
-| prefecture      | integer    | null: false                                |
+| prefecture_id   | integer    | null: false                                |
 | city            | string     | null: false                                |
 | lot_number      | string     | null: false                                |
 | building_name   | string     |                                            |
