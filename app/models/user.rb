@@ -6,11 +6,8 @@ class User < ApplicationRecord
   
   validates :nickname,            presence: true
   validates :email,               presence: true, uniqueness: true
-  VALID_PASSWORD_REGEX = /\A[\w\-]+\z/
-  validates :encrypted_password,  presence: true,
-                                  format: {
-                                    with: VALID_PASSWORD_REGEX
-                                  }
+  VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])[a-z\d]+\z/
+  validates :password,            presence: true,format: { with: VALID_PASSWORD_REGEX }
   validates :first_name,          presence: true
   validates :last_name,           presence: true
   validates :first_name_kana,     presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: 'はカタカナで入力して下さい。' }
