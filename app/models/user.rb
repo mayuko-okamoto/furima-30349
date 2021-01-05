@@ -10,8 +10,8 @@ class User < ApplicationRecord
   validates :password,            presence: true,format: { with: VALID_PASSWORD_REGEX }
   validates :first_name,          presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: 'は全角で入力して下さい。' }
   validates :last_name,           presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: 'は全角で入力して下さい。' }
-  validates :first_name_kana,     presence: true, format: { with: /^([ァ-ン]|ー)+$/, message: 'は全角カタカナで入力して下さい。' }
-  validates :last_name_kana,      presence: true, format: { with: /^([ァ-ン]|ー)+$/, message: 'は全角カタカナで入力して下さい。' }
+  validates :first_name_kana,     presence: true, format: { with: /[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+/, message: 'は全角カタカナで入力して下さい。' }
+  validates :last_name_kana,      presence: true, format: { with: /[\p{katakana}　ー－&&[^ -~｡-ﾟ]]+/, message: 'は全角カタカナで入力して下さい。' }
   validates :birth_date,          presence: true
 
   has_many :items
