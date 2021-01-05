@@ -8,8 +8,8 @@ class User < ApplicationRecord
   validates :email,               presence: true, uniqueness: true
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])\w{6,100}\z/
   validates :password,            presence: true,format: { with: VALID_PASSWORD_REGEX }
-  validates :first_name,          presence: true
-  validates :last_name,           presence: true
+  validates :first_name,          presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: 'は全角で入力して下さい。' }
+  validates :last_name,           presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]+\z/, message: 'は全角で入力して下さい。' }
   validates :first_name_kana,     presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: 'はカタカナで入力して下さい。' }
   validates :last_name_kana,      presence: true, format: { with: /\A[\p{katakana}\p{blank}ー－]+\z/, message: 'はカタカナで入力して下さい。' }
   validates :birth_date,          presence: true
