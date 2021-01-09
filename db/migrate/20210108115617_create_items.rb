@@ -2,8 +2,8 @@ class CreateItems < ActiveRecord::Migration[6.0]
   def change
     create_table :items do |t|
       t.string     :title,              null: false
-      t.text       :nickname,           null: false
-      t.integer    :price,              null: false, inclusion: { in: 300..9999999 }
+      t.text       :detail,             null: false
+      t.integer    :price,              null: false
       t.integer    :category_id,        null: false
       t.integer    :condition_id,       null: false
       t.integer    :shipping_payer_id,  null: false
