@@ -17,9 +17,11 @@ class Item < ApplicationRecord
 
 
   validates :category_id, numericality: { other_than: 1 } 
-  validates :condition_id, numericality: { other_than: 1 } 
+  validates :condition_id, numericality: { other_than: 1 }
+  validates :shipping_payer_id, numericality: { other_than: 1 } 
 
   belongs_to :category
   belongs_to :condition
+  belongs_to :shipping_payer
 
 end
