@@ -5,7 +5,7 @@ class Item < ApplicationRecord
     validates :title
     validates :detail
     validates :price,         
-      inclusion: { in: 300..9999999 },
+      numericality: {only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999},
       format: { with: /^[0-9]+$/, message: 'は半角数字で入力して下さい。' }
     validates :category_id
     validates :condition_id
