@@ -14,6 +14,12 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one :purchase_record
   has_one_attached :image
+
+
+  validates :category_id, numericality: { other_than: 1 } 
+  validates :condition_id, numericality: { other_than: 1 } 
+
   belongs_to :category
+  belongs_to :condition
 
 end
