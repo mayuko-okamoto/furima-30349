@@ -22,6 +22,7 @@ class Item < ApplicationRecord
   validates :prefecture_id, numericality: { other_than: 1 } 
   validates :storage_date_id, numericality: { other_than: 1 } 
 
+  extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :condition
   belongs_to :shipping_payer
