@@ -17,11 +17,13 @@ class Item < ApplicationRecord
   has_one :purchase_record
   has_one_attached :image
 
-  validates :category_id, numericality: { other_than: 1 }
-  validates :condition_id, numericality: { other_than: 1 }
-  validates :shipping_payer_id, numericality: { other_than: 1 }
-  validates :prefecture_id, numericality: { other_than: 1 }
-  validates :storage_date_id, numericality: { other_than: 1 }
+  with_options numericality: { other_than: 1 } do
+    validates :category_id
+    validates :condition_id
+    validates :shipping_payer_id
+    validates :prefecture_id
+    validates :storage_date_id
+  end
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
