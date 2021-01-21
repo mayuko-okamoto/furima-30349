@@ -4,14 +4,12 @@ class Order
   
   with_options presence: true do
     validates :postal_code,
-              numericality: { only_integer: true,  },
-              format: { with: /\A[0-9]+\z/, message: 'は半角数字で入力して下さい。' }
+              format: { with: /\A\d{3}[-]\d{4}\z/, message: 'はハイフンが必要です。' }
     validates :prefecture_id
-    validates :city, 
-              numericality: { only_integer: true,  },
-              format: { with: /\A[0-9]+\z/, message: 'は半角数字で入力して下さい。' }
-    validates :lot_number, format: { with: /\A[a-z0-9]+\z/i, message: "is invalid. Input half-width characters." }
-    validates :phone, format: { with: /\A[0-9]+\z/, message: "is invalid. Input half-width characters." }
+    validates :city
+    validates :lot_number
+    validates :phone, 
+              format: { with: /\A[0-9]{,8}+\z/, message: 'は11桁以下の半角数字で入力して下さい。' }
   end
 
   def save
