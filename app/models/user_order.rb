@@ -9,7 +9,7 @@ class UserOrder
     validates :city
     validates :lot_number
     validates :phone, 
-              format: { with: /\A[0-9]{,8}+\z/, message: 'は11桁以下の半角数字で入力して下さい。' }
+              format: { with: /\A[0-9]{,11}+\z/, message: 'は11桁以下の半角数字で入力して下さい。' }
   end
 
   def save
