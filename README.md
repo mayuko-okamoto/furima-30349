@@ -16,7 +16,7 @@
 ### Association
 
 - has_many :items
-- has_many :purchase_records
+- has_many :orders
 
 ## items テーブル
 
@@ -35,9 +35,9 @@
 ### Association
 
 - belongs_to :user
-- has_one :purchase_record
+- has_one :order
 
-## purchase_record テーブル
+## order テーブル
 
 | Column      | Type       | Options           |
 |-------------|------------|-------------------|
@@ -60,8 +60,8 @@
 | lot_number      | string     | null: false                                |
 | building_name   | string     |                                            |
 | phone           | string     | null: false,format: { with: /\A[0-9]+\z/ } |
-| purchase_record | references | foreign_key: true                          |
+| order           | references | foreign_key: true                          |
 
 ### Association
 
-- belongs_to :purchase_record
+- belongs_to :order

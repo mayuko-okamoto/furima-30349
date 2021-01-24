@@ -14,7 +14,7 @@ class Item < ApplicationRecord
   end
 
   belongs_to :user
-  has_one :purchase_record
+  has_one :order
   has_one_attached :image
 
   with_options numericality: { other_than: 1 } do
