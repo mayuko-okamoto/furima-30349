@@ -1,6 +1,6 @@
 class UserOrder
   include ActiveModel::Model
-  attr_accessor :postal_code, :prefecture_id, :city, :lot_number, :building_name, :phone
+  attr_accessor :postal_code, :prefecture_id, :city, :lot_number, :building_name, :phone, :orders_id, :user_id, :item_id
   
   with_options presence: true do
     validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'はハイフンが必要です。' }
@@ -11,7 +11,7 @@ class UserOrder
   end
 
   def save
-    Order.create(item_id: item.id, user_id: user.id)
+    order = Order.create(user_id: user_id, item_id: item_id)
     Address.create(postal_code: postal_code, prefecture_id: prefecture_id, city: city, lot_number: lot_number, building_name: building_name, phone: phone, order_id: order.id)
   end
 end
