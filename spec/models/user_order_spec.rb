@@ -5,23 +5,54 @@ RSpec.describe UserOrder, type: :model do
   end
 
   describe '配送先の住所情報の保存' do
+    context '配送先の住所情報が保存できる場合' do
+      it 'すべての値が正しく入力されていれば保存できる' do
+        expect(@user_order).to be_valid
+      end
+    end
 
-    it 'すべての値が正しく入力されていれば保存できること' do
-      expect(@user_order).to be_valid
+    context '配送先の住所情報が保存できない場合' do
+      it '郵便番号がないと保存できない' do
+        @user_order.postal_code = ''
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Postal code can't be blank")
+      end
+      it '郵便番号にハイフンがないと保存できない' do
+        @user_order.postal_code = '1234567'
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include('Postal code はハイフンが必要です。')
+      end
+      it 'prefecture_idがないと出品できない' do
+        @user_order.prefecture_id = ''
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Prefecture can't be blank")
+      end
+      it 'prefecture_idが1では出品できない' do
+        @user_order.prefecture_id = '1'
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Prefecture must be other than 1")
+      end
+      it 'cityがないと出品できない' do
+        @user_order.city = ''
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("City can't be blank")
+      end
+      it 'lot_numberがないと出品できない' do
+        @user_order.lot_number = ''
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Lot number can't be blank")
+      end
+      it '電話番号がないと保存できない' do
+        @user_order.phone = ''
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Phone can't be blank")
+      end
+      it '電話番号が12桁以上だと保存できない' do
+        @user_order.phone = '090123456789'
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include('Phone is too long (maximum is 11 characters)')
+      end
     end
-    it 'nameが空だと保存できないこと' do
-    end
-    it 'nameが全角日本語でないと保存できないこと' do
-    end
-    it 'name_readingが空だと保存できないこと' do
-    end
-    it 'name_readingが全角日本語でないと保存できないこと' do
-    end
-    it 'nicknameが空だと保存できないこと' do
-    end
-    it 'nicknameが半角でないと保存できないこと' do
-    end
-    it 'postal_codeが空だと保存できないこと' do
-    end
+      
   end
 end

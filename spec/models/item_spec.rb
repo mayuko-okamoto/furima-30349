@@ -18,6 +18,7 @@ RSpec.describe Item, type: :model do
         expect(@item).to be_valid
       end
     end
+    
     context '商品の出品ができない場合' do
       it 'imageがないと出品できない' do
         @item.image = nil
