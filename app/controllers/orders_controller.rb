@@ -1,9 +1,16 @@
 class OrdersController < ApplicationController
   before_action :move_to_sessions_new, only: [:index]
+  # before_action :move_to_root_path, only: [:index]
 
   def index
     @order = UserOrder.new
     @item = Item.find(params[:item_id])
+    if current_user.id == @item.user.id
+      redirect_to root_path
+    end
+    if user_signed_in? && @item.order.present?
+      redirect_to root_path
+    end
   end
 
   def create
@@ -39,5 +46,6 @@ class OrdersController < ApplicationController
       redirect_to new_user_session_path
     end
   end
+
 
 end
