@@ -1,4 +1,6 @@
 class UserOrder
+  attr_accessor :token
+  
   include ActiveModel::Model
   attr_accessor :postal_code, :prefecture_id, :city, :lot_number, :building_name, :phone, :order_id, :user_id, :item_id
   
@@ -8,6 +10,7 @@ class UserOrder
     validates :city
     validates :lot_number
     validates :phone
+    validates :token
   end
   validates :prefecture_id, numericality: { other_than: 1 }
   validates :phone, length: { maximum: 11 }
