@@ -9,6 +9,10 @@ RSpec.describe UserOrder, type: :model do
       it 'すべての値が正しく入力されていれば保存できる' do
         expect(@user_order).to be_valid
       end
+      it 'building_nameが空でも保存できる' do
+        @user_order.building_name = ''
+        expect(@user_order).to be_valid
+      end
     end
 
     context '配送先の住所情報が保存できない場合' do
@@ -28,7 +32,7 @@ RSpec.describe UserOrder, type: :model do
         expect(@user_order.errors.full_messages).to include("Prefecture can't be blank")
       end
       it 'prefecture_idが1では出品できない' do
-        @user_order.prefecture_id = '1'
+        @user_order.prefecture_id = 1
         @user_order.valid?
         expect(@user_order.errors.full_messages).to include("Prefecture must be other than 1")
       end
@@ -51,6 +55,21 @@ RSpec.describe UserOrder, type: :model do
         @user_order.phone = '090123456789'
         @user_order.valid?
         expect(@user_order.errors.full_messages).to include('Phone is too long (maximum is 11 characters)')
+      end
+      it '電話番号が全角では保存できない' do
+        @user_order.phone = '０９０１１１１１１１１'
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Phone は半角数字で入力して下さい。")
+      end
+      it '電話番号にハイフンが入力されている場合は保存できない' do
+        @user_order.phone = '090-1111-1111'
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Phone は半角数字で入力して下さい。")
+      end
+      it '電話番号に数字以外の文字が入力されている場合は保存できない' do
+        @user_order.phone = 'aiueo'
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Phone は半角数字で入力して下さい。")
       end
       it "tokenが空では登録できないこと" do
         @user_order.token = nil

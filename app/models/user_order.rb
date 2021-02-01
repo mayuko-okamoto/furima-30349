@@ -10,10 +10,13 @@ class UserOrder
     validates :city
     validates :lot_number
     validates :phone
+    validates :user_id
+    validates :item_id
     validates :token
   end
   validates :prefecture_id, numericality: { other_than: 1 }
-  validates :phone, length: { maximum: 11 }
+  validates :phone, length: { maximum: 11 },
+                    format: { with: /\A[0-9]+\z/, message: 'は半角数字で入力して下さい。' }
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)

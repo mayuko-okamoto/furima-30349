@@ -1,20 +1,18 @@
 class OrdersController < ApplicationController
   before_action :move_to_sessions_new, only: [:index]
-  # before_action :move_to_root_path, only: [:index]
+  before_action :set_item, only: [:index, :create]
 
   def index
-    @order = UserOrder.new
-    @item = Item.find(params[:item_id])
     if current_user.id == @item.user.id
       redirect_to root_path and return
     end
     if user_signed_in? && @item.order.present?
       redirect_to root_path and return
     end
+    @order = UserOrder.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @order = UserOrder.new(order_params)
     if @order.valid?
       pay_item
@@ -46,6 +44,9 @@ class OrdersController < ApplicationController
       redirect_to new_user_session_path
     end
   end
+
+  def set_item
+    @item = Item.find(params[:item_id])
 
 
 end
