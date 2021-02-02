@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
-  before_action :move_to_sessions_new, only: [:index]
+  before_action :authenticate_user!, only: [:index]
   before_action :set_item, only: [:index, :create]
-
+  
   def index
     if current_user.id == @item.user.id
       redirect_to root_path and return
@@ -38,15 +38,8 @@ class OrdersController < ApplicationController
     )
   end
 
-
-  def move_to_sessions_new
-    unless user_signed_in?
-      redirect_to new_user_session_path
-    end
-  end
-
   def set_item
     @item = Item.find(params[:item_id])
-
+  end
 
 end

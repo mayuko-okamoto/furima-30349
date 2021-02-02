@@ -2,6 +2,9 @@ require 'rails_helper'
 RSpec.describe UserOrder, type: :model do
   before do
     @user_order = FactoryBot.build(:user_order)
+    @user_order.item_id =  FactoryBot.create(:item).id
+    @user_order.user_id =  FactoryBot.create(:user).id
+    sleep(1)
   end
 
   describe '配送先の住所情報の保存' do
@@ -72,9 +75,19 @@ RSpec.describe UserOrder, type: :model do
         expect(@user_order.errors.full_messages).to include("Phone は半角数字で入力して下さい。")
       end
       it "tokenが空では登録できないこと" do
-        @user_order.token = nil
+        @user_order.token = ''
         @user_order.valid?
         expect(@user_order.errors.full_messages).to include("Token can't be blank")
+      end
+      it "item_idが空では登録できないこと" do
+        @user_order.item_id = ''
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("Item can't be blank")
+      end
+      it "user_idが空では登録できないこと" do
+        @user_order.user_id = ''
+        @user_order.valid?
+        expect(@user_order.errors.full_messages).to include("User can't be blank")
       end
     end
       
